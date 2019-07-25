@@ -1,21 +1,17 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.Person;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 import java.util.Map;
 
 /**
- * @description: empCoteoller
+ * @description: deptConroller
  * @author: ${༺评༒生༻}
- * @date: 2019-07-16 21:17
+ * @date: 2019-07-25 15:21
  * @Version 1.0
  */
-@Controller
-@RequestMapping("emp")
-public class empCoteoller {
+public class deptConroller {
 
     private  String name;
     /*@Value ("${person.age}")*/
@@ -28,8 +24,5 @@ public class empCoteoller {
 
     private Map<String,String> map;
     private  List<Person> phones;
-
-
-
 
 }
