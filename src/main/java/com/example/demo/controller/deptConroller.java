@@ -25,4 +25,8 @@ public class deptConroller {
     private Map<String,String> map;
     private  List<Person> phones;
 
+    public static void main(String[] args) {
+        System.out.println ("66666");
+        System.out.println ("77777" );
+    }
 }
