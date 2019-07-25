@@ -1,0 +1,25 @@
+server:
+  port: 8090
+  servlet:
+    context-path: /demo2
+
+
+#person:
+ # name: 张湾
+  #age: 18
+  #sex: 男
+ # nums: [1000,2000,3000]
+  #list1: [abc,asd,asd]
+  #map: {k1: v1,k2: v2}
+  #phones: [{name: 华为30,price: 5009},{name: 华为98,price: 8000}]
+  #换行
+  #nums:
+   # - 100
+    #- 200
+    #- 300
+
+
+
+dept:
+  deptno:10086
+  dname:八戒

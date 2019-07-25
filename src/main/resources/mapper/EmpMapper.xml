@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo4.dao.EmpMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo4.entity.Emp">
+    <id column="empno" jdbcType="INTEGER" property="empno" />
+    <result column="ename" jdbcType="VARCHAR" property="ename" />
+    <result column="dno" jdbcType="INTEGER" property="dno" />
+    <result column="hiredate" jdbcType="DATE" property="hiredate" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    empno, ename, dno, hiredate, sex
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from emp
+    where empno = #{empno,jdbcType=INTEGER}
+  </select>
+  <!--start计算出开始-->
+  <select id="queryAll" resultType="map">
+    select e.*,d.dname
+    from emp e join dept d on e.dno=d.dno
+    <where>
+      <if test="ename!=null and ename!=''">
+        and (ename like "%"#{ename}"%"
+        or d.dname like "%"#{ename}"%")
+      </if>
+      <if test="deptNo!=null and deptNo!=''">
+         and e.dno = #{deptNo}
+      </if>
+    </where>  limit ${start},${pageSize}
+  </select>
+  <select id="queryPageCount" resultType="int">
+    select count(*)
+    from emp e join dept d on e.dno=d.dno
+    <where>
+      <if test="ename!=null and ename!=''">
+        and (ename like "%"#{ename}"%"
+        or d.dname like "%"#{ename}"%")
+      </if>
+      <if test="deptNo!=null and deptNo!=''">
+        and e.dno = #{deptNo}
+      </if>
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from emp
+    where empno = #{empno,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.demo4.entity.Emp">
+    insert into emp (empno, ename, dno, 
+      hiredate, sex)
+    values (#{empno,jdbcType=INTEGER}, #{ename,jdbcType=VARCHAR}, #{dno,jdbcType=INTEGER}, 
+      #{hiredate,jdbcType=DATE}, #{sex,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo4.entity.Emp">
+    insert into emp
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="empno != null">
+        empno,
+      </if>
+      <if test="ename != null">
+        ename,
+      </if>
+      <if test="dno != null">
+        dno,
+      </if>
+      <if test="hiredate != null">
+        hiredate,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="empno != null">
+        #{empno,jdbcType=INTEGER},
+      </if>
+      <if test="ename != null">
+        #{ename,jdbcType=VARCHAR},
+      </if>
+      <if test="dno != null">
+        #{dno,jdbcType=INTEGER},
+      </if>
+      <if test="hiredate != null">
+        #{hiredate,jdbcType=DATE},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo4.entity.Emp">
+    update emp
+    <set>
+      <if test="ename != null">
+        ename = #{ename,jdbcType=VARCHAR},
+      </if>
+      <if test="dno != null">
+        dno = #{dno,jdbcType=INTEGER},
+      </if>
+      <if test="hiredate != null">
+        hiredate = #{hiredate,jdbcType=DATE},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where empno = #{empno,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo4.entity.Emp">
+    update emp
+    set ename = #{ename,jdbcType=VARCHAR},
+      dno = #{dno,jdbcType=INTEGER},
+      hiredate = #{hiredate,jdbcType=DATE},
+      sex = #{sex,jdbcType=VARCHAR}
+    where empno = #{empno,jdbcType=INTEGER}
+  </update>
+</mapper>
