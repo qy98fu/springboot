@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 @Data
 @ConfigurationProperties(prefix = "dept")
 public class Dept {
+    private  int da;
     private  Integer deptno;
     private  String dname;
 
